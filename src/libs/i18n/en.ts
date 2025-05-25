@@ -1,5 +1,5 @@
-import type { DeepStringify } from '@/i18n/index.ts'
-import type fr from '@/i18n/fr.ts'
+import type { DeepStringify } from '@/libs/i18n/index.ts'
+import type fr from '@/libs/i18n/fr.ts'
 
 const en: DeepStringify<typeof fr> = {
     home: {

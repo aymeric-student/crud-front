@@ -1,0 +1,99 @@
+[
+    {
+        "filePath": "/Users/aymericmaillot/WebstormProjects/test-export/src/App.vue",
+        "messages": [
+            {
+                "ruleId": "vue/no-parsing-error",
+                "severity": 2,
+                "message": "Parsing error: x-invalid-end-tag.",
+                "line": 8,
+                "column": 12,
+                "nodeType": "VElement",
+                "messageId": "parsingError"
+            },
+            {
+                "ruleId": "vue/no-parsing-error",
+                "severity": 2,
+                "message": "Parsing error: x-invalid-end-tag.",
+                "line": 9,
+                "column": 9,
+                "nodeType": "VElement",
+                "messageId": "parsingError"
+            }
+        ],
+        "suppressedMessages": [],
+        "errorCount": 2,
+        "fatalErrorCount": 0,
+        "warningCount": 0,
+        "fixableErrorCount": 0,
+        "fixableWarningCount": 0,
+        "source": "<script setup lang=\"ts\">\n\n</script>\n\n<template>\n  <div>\n    <p>salut</p>\n    <input></input>\n    <br></br>\n\n  </div>\n</template>\n\n",
+        "usedDeprecatedRules": []
+    },
+    {
+        "filePath": "/Users/aymericmaillot/WebstormProjects/test-export/src/components/HelloWorld.vue",
+        "messages": [],
+        "suppressedMessages": [],
+        "errorCount": 0,
+        "fatalErrorCount": 0,
+        "warningCount": 0,
+        "fixableErrorCount": 0,
+        "fixableWarningCount": 0,
+        "usedDeprecatedRules": []
+    },
+    {
+        "filePath": "/Users/aymericmaillot/WebstormProjects/test-export/src/components/Home.component.vue",
+        "messages": [],
+        "suppressedMessages": [],
+        "errorCount": 0,
+        "fatalErrorCount": 0,
+        "warningCount": 0,
+        "fixableErrorCount": 0,
+        "fixableWarningCount": 0,
+        "usedDeprecatedRules": []
+    },
+    {
+        "filePath": "/Users/aymericmaillot/WebstormProjects/test-export/src/main.ts",
+        "messages": [],
+        "suppressedMessages": [],
+        "errorCount": 0,
+        "fatalErrorCount": 0,
+        "warningCount": 0,
+        "fixableErrorCount": 0,
+        "fixableWarningCount": 0,
+        "usedDeprecatedRules": []
+    },
+    {
+        "filePath": "/Users/aymericmaillot/WebstormProjects/test-export/src/modules/jobs/Jobs.component.vue",
+        "messages": [],
+        "suppressedMessages": [],
+        "errorCount": 0,
+        "fatalErrorCount": 0,
+        "warningCount": 0,
+        "fixableErrorCount": 0,
+        "fixableWarningCount": 0,
+        "usedDeprecatedRules": []
+    },
+    {
+        "filePath": "/Users/aymericmaillot/WebstormProjects/test-export/src/router/index.ts",
+        "messages": [],
+        "suppressedMessages": [],
+        "errorCount": 0,
+        "fatalErrorCount": 0,
+        "warningCount": 0,
+        "fixableErrorCount": 0,
+        "fixableWarningCount": 0,
+        "usedDeprecatedRules": []
+    },
+    {
+        "filePath": "/Users/aymericmaillot/WebstormProjects/test-export/src/vite-env.d.ts",
+        "messages": [],
+        "suppressedMessages": [],
+        "errorCount": 0,
+        "fatalErrorCount": 0,
+        "warningCount": 0,
+        "fixableErrorCount": 0,
+        "fixableWarningCount": 0,
+        "usedDeprecatedRules": []
+    }
+]

@@ -1,6 +1,6 @@
 import { createI18n } from 'vue-i18n'
-import fr from './fr'
-import en from './en'
+import fr from '@/libs/i18n/fr.ts'
+import en from '@/libs/i18n//en.ts'
 
 export type DeepStringify<T> = {
     [K in keyof T]: T[K] extends object ? DeepStringify<T[K]> : string

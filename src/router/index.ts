@@ -1,13 +1,13 @@
 import { ref } from 'vue'
 import type { RouteRecordRaw } from 'vue-router'
-import Job from '@/modules/jobs/Jobs.component.vue'
 import { createRouter, createWebHistory } from 'vue-router'
+import Kaban from '@/modules/kaban/Kaban.component.vue'
 
 const routes = ref<RouteRecordRaw[]>([
     {
         path: '/',
         name: 'Home',
-        component: Job
+        component: Kaban
     }
 ])
 
