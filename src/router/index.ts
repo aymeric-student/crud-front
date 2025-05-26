@@ -1,19 +1,23 @@
-import { ref } from 'vue'
 import type { RouteRecordRaw } from 'vue-router'
 import { createRouter, createWebHistory } from 'vue-router'
-import Kaban from '@/modules/kaban/Kaban.component.vue'
+import Kaban from '@/modules/kaban/tbKaban.component.vue'
 
-const routes = ref<RouteRecordRaw[]>([
+const routes: RouteRecordRaw[] = [
     {
         path: '/',
-        name: 'Home',
-        component: Kaban
+        redirect: '/board/0'
+    },
+    {
+        path: '/board/:boardId',
+        name: 'Board',
+        component: Kaban,
+        props: true
     }
-])
+]
 
 const router = createRouter({
     history: createWebHistory(),
-    routes: routes.value
+    routes
 })
 
 export default router
