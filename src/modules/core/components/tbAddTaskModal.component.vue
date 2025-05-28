@@ -42,7 +42,7 @@ const closeModal = () => {
     >
         <div
             :style="{ width: props.width, height: props.height }"
-            class="bg-[#2B2C37] rounded-lg p-6 text-white relative modal-container"
+            class="bg-[#2B2C37] rounded-lg text-white relative p-6"
             @click.stop
         >
             <h2 class="text-xl font-bold title mb-2">Add New Task</h2>
@@ -63,8 +63,8 @@ const closeModal = () => {
             <div>
                 <h2 class="mb-2">Subtasks</h2>
 
-                <div class="flex items-center mb-6">
-                    <input class="mr-2" placeholder="e.g. Web Design" type="text" />
+                <div class="flex items-center mb-6 gap-2">
+                    <input placeholder="e.g. Web Design" type="text" />
                     <img
                         alt="croix"
                         class="cursor-pointer ml-2 w-4 h-4"
@@ -90,10 +90,6 @@ const closeModal = () => {
 </template>
 
 <style scoped>
-.modal-container {
-    padding: 32px;
-}
-
 .title {
     padding-bottom: 24px;
 }

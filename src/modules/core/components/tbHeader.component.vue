@@ -16,12 +16,12 @@ const handleAddTask = () => {
 
 <template>
     <header
-        class="flex items-center justify-between bg-[#2B2C37] h-[97px] text-white shadow px-6 py-4"
+        class="flex items-center justify-between bg-[#2B2C37] h-[97px] text-white shadow px-6 py-4 border-b border-[#979797]"
     >
         <div class="w-full flex items-center justify-between">
             <h1 class="text-white font-bold text-2xl">{{ selectedBoard }}</h1>
 
-            <div class="flex items-center test">
+            <div class="flex items-center mr-8">
                 <tb-button
                     :disabled="isDisabled"
                     icon="mdi-plus"
@@ -36,18 +36,3 @@ const handleAddTask = () => {
         </div>
     </header>
 </template>
-
-<style scoped>
-.test {
-    margin-right: 32px;
-}
-
-.title-app {
-    font-style: normal;
-    font-weight: 700;
-    font-size: 24px;
-    line-height: 30px;
-    color: #ffffff;
-    margin-left: 32px;
-}
-</style>

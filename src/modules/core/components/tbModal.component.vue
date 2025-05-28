@@ -76,17 +76,17 @@ const removeColumn = (index: number) => {
     >
         <div
             :style="{ width: props.width, height: props.height }"
-            class="bg-[#2B2C37] rounded-lg p-6 text-white relative modal-container"
+            class="bg-[#2B2C37] rounded-lg p-6 text-white relative p-8"
             @click.stop
         >
-            <h2 v-if="title" class="text-xl font-bold title">{{ title }}</h2>
+            <h2 v-if="title" class="text-xl font-bold p-6">{{ title }}</h2>
 
-            <h2 class="font-bold text-xs leading-[15px] text-white">Board Name</h2>
+            <h2 class="font-bold text-xs leading-[15px] text-white pb-2">Board Name</h2>
 
             <input v-model="boardName" placeholder="e.g. Platform Launch" type="text" />
 
-            <div class="add-column">
-                <h2 class="font-bold text-xs leading-[15px] text-white">Board Columns</h2>
+            <div>
+                <h2 class="font-bold text-xs leading-[15px] text-white pb-2">Board Columns</h2>
 
                 <div
                     v-for="(_, index) in columns"
@@ -119,14 +119,6 @@ const removeColumn = (index: number) => {
 </template>
 
 <style scoped>
-.modal-container {
-    padding: 32px;
-}
-
-.title {
-    padding-bottom: 24px;
-}
-
 input {
     background: #2b2c37;
     border: 1px solid rgba(130, 143, 163, 0.25);

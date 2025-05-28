@@ -15,7 +15,7 @@ const selectBoard = (id: string) => {
 </script>
 
 <template>
-    <aside class="w-[300px] bg-[#2B2C37] text-white p-4">
+    <aside class="w-[300px] bg-[#2B2C37] text-white">
         <img alt="logo" class="logo" src="@/assets/logo.svg" />
         <h2>ALL BOARDS (8)</h2>
         <ul class="space-y-3">
@@ -65,13 +65,14 @@ ul li {
     transition: background-color 0.2s;
     padding-left: 32px;
     gap: 12px;
+    width: 276px;
 }
 
 ul li.active-item {
     background: #635fc7;
     color: white;
     font-weight: 700;
-    border-radius: 100px;
+    width: 276px;
 }
 
 ul li.active-item p {
@@ -80,6 +81,7 @@ ul li.active-item p {
 
 ul li:hover:not(.active-item):not(.last-item) {
     background-color: rgba(99, 95, 199, 0.1);
+    width: 276px;
 }
 
 ul li.last-item {

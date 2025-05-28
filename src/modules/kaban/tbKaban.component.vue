@@ -26,7 +26,7 @@ const addTask = (title: string) => {
 </script>
 
 <template>
-    <div class="board-container">
+    <div class="board-container flex">
         <div v-for="(column, columnIndex) in columns" :key="columnIndex" class="board-column">
             <div class="column-header">
                 <div class="circle"></div>
@@ -67,7 +67,6 @@ const addTask = (title: string) => {
 <style scoped>
 .board-container {
     padding: 24px;
-    display: flex;
 }
 
 .board-column {

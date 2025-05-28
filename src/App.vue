@@ -32,26 +32,4 @@ useHead({
 * {
     font-family: 'Plus Jakarta Sans', sans-serif;
 }
-
-.icon-ellipsis {
-    font-size: 24px;
-    margin-right: 32px;
-    padding-left: 24px;
-    color: #a3a3a3;
-}
-
-header {
-    border-bottom: solid 1px #979797;
-}
-
-.title-app {
-    padding-top: 29px;
-    padding-bottom: 37px;
-    padding-left: 24px;
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 30px;
-    color: #ffffff;
-}
 </style>

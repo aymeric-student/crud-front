@@ -28,17 +28,10 @@ const handleClick = () => {
             'opacity-25 cursor-not-allowed': disabled
         }"
         :disabled="disabled"
-        class="font-bold rounded-3xl border-none h-12 px-é flex items-center justify-center gap-2 cursor-pointer"
+        class="font-bold rounded-3xl border-none h-12 px-6 flex items-center justify-center gap-2 cursor-pointer"
         @click="handleClick"
     >
         <i v-if="icon" :class="`mdi ${icon}`"></i>
         <slot />
     </button>
 </template>
-
-<style>
-button {
-    padding-left: 24px;
-    padding-right: 24px;
-}
-</style>
