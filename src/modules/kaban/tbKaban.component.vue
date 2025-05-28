@@ -21,7 +21,7 @@ const addTask = (title: string) => {
     const firstColumn = boardStore.selectedBoard?.columns?.[0]
     if (firstColumn) {
         const taskId = `${Date.now()}`
-        firstColumn.tasks.push({ id: taskId, title, subTask: [] })
+        firstColumn.tasks.push({ id: taskId, title, subTasks: [], description: '' })
     }
 }
 </script>
@@ -42,13 +42,19 @@ const addTask = (title: string) => {
                 item-key="id"
             >
                 <template #item="{ element: task }">
-                    <div class="task" @click="boardStore.openTaskViewModal()">
+                    <div class="task" @click="boardStore.openTaskViewModal(task)">
                         <h3>{{ task.title }}</h3>
                     </div>
                 </template>
             </draggable>
         </div>
     </div>
+
+    <tb-modal-task-view
+        :show="boardStore.showTaskViewModal"
+        :task="boardStore.taskSelected"
+        @close="boardStore.closeTaskViewModal"
+    />
 
     <tb-modal
         :show="boardStore.showModal"
@@ -63,11 +69,6 @@ const addTask = (title: string) => {
         @close="boardStore.closeAddTaskModal"
         @create="addTask"
     />
-
-    <tb-modal-task-view
-        :show="boardStore.showTaskViewModal"
-        @close="boardStore.closeTaskViewModal()"
-    ></tb-modal-task-view>
 </template>
 
 <style scoped>

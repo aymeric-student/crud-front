@@ -1,7 +1,7 @@
 // stores/useBoardStore.ts
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
-import type { Board } from '@/modules/kaban/models/board.model'
+import type { Board, Task } from '@/modules/kaban/models/board.model'
 import boardsData from '@/modules/kaban/datas/boards.data.ts'
 
 export const useBoardStore = defineStore('board', () => {
@@ -10,6 +10,7 @@ export const useBoardStore = defineStore('board', () => {
     const showModal = ref(false)
     const showAddTaskModal = ref(false)
     const showTaskViewModal = ref(false)
+    const taskSelected = ref<Task | null>(null)
     const setSelectedBoard = (id: string) => {
         selectedBoardId.value = id
     }
@@ -34,7 +35,8 @@ export const useBoardStore = defineStore('board', () => {
         showAddTaskModal.value = false
     }
 
-    const openTaskViewModal = () => {
+    const openTaskViewModal = (task: Task) => {
+        taskSelected.value = task
         showTaskViewModal.value = true
     }
 
@@ -49,6 +51,7 @@ export const useBoardStore = defineStore('board', () => {
         showModal,
         showAddTaskModal,
         showTaskViewModal,
+        taskSelected,
         setSelectedBoard,
         openModal,
         closeModal,

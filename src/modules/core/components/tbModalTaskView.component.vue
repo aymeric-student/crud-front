@@ -1,19 +1,17 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
+import type { Subtasks, Task } from '@/modules/kaban/models/board.model.ts'
 
 interface Props {
     show: boolean
     width?: string
     height?: string
-}
-
-interface Subtasks {
-    completed: boolean
-    description: string
+    task: null | Task
 }
 
 const props = withDefaults(defineProps<Props>(), {
     width: '480px',
+    task: null,
     height: 'auto'
 })
 
@@ -39,23 +37,26 @@ const toggleDropdown = () => {
 
 const subTasks = ref<Subtasks[]>([
     {
-        completed: true,
-        description: 'Research competitor pricing and business models'
+        id: '2-1',
+        isCompleted: true,
+        title: 'Research competitor pricing and business models'
     },
     {
-        completed: true,
-        description: ' Outline a business model that works for our solution'
+        id: '2-2',
+        isCompleted: true,
+        title: ' Outline a business model that works for our solution'
     },
     {
-        completed: false,
-        description:
+        id: '2-3',
+        isCompleted: false,
+        title:
             ' Talk to potential customers about our proposed solution and ask for fair\n' +
             '                            price expectancy'
     }
 ])
 
 const toggleSubtask = (index: number) => {
-    subTasks.value[index].completed = !subTasks.value[index].completed
+    subTasks.value[index].isCompleted = !subTasks.value[index].isCompleted
 }
 </script>
 
@@ -71,13 +72,11 @@ const toggleSubtask = (index: number) => {
             @click.stop
         >
             <h2 class="font-bold text-lg leading-[23px] mb-6">
-                Research pricing points of various competitors and trial different business models
+                {{ task?.title }}
             </h2>
 
             <p class="font-medium leading-[23px] text-[13px] text-[#828fa3] mb-6">
-                We know what we're planning to build for version one. Now we need to finalise the
-                first pricing model we'll use. Keep iterating the subtasks until we have a coherent
-                proposition.
+                {{ task?.description }}
             </p>
 
             <div class="mb-6">
@@ -86,23 +85,23 @@ const toggleSubtask = (index: number) => {
                 <div class="container">
                     <div class="container">
                         <div
-                            v-for="(subtask, index) in subTasks"
+                            v-for="(subtask, index) in task?.subTasks"
                             :key="index"
                             class="test flex items-center bg-[#20212c] rounded p-3"
                         >
                             <input
-                                :checked="subtask.completed"
+                                :checked="subtask.isCompleted"
                                 class="flex-shrink-0 mr-2"
                                 type="checkbox"
                                 @change="toggleSubtask(index)"
                             />
                             <p
                                 :class="{
-                                    'line-through text-[#828fa3]': subtask.completed,
-                                    'text-white': !subtask.completed
+                                    'line-through text-[#828fa3]': subtask.isCompleted,
+                                    'text-white': !subtask.isCompleted
                                 }"
                             >
-                                {{ subtask.description }}
+                                {{ subtask.title }}
                             </p>
                         </div>
                     </div>
