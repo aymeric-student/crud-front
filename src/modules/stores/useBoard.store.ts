@@ -9,7 +9,7 @@ export const useBoardStore = defineStore('board', () => {
     const selectedBoardId = ref<string>('0')
     const showModal = ref(false)
     const showAddTaskModal = ref(false)
-
+    const showTaskViewModal = ref(false)
     const setSelectedBoard = (id: string) => {
         selectedBoardId.value = id
     }
@@ -34,16 +34,27 @@ export const useBoardStore = defineStore('board', () => {
         showAddTaskModal.value = false
     }
 
+    const openTaskViewModal = () => {
+        showTaskViewModal.value = true
+    }
+
+    const closeTaskViewModal = () => {
+        showTaskViewModal.value = false
+    }
+
     return {
         boards,
         selectedBoardId,
         selectedBoard,
         showModal,
         showAddTaskModal,
+        showTaskViewModal,
         setSelectedBoard,
         openModal,
         closeModal,
         openAddTaskModal,
-        closeAddTaskModal
+        closeAddTaskModal,
+        openTaskViewModal,
+        closeTaskViewModal
     }
 })

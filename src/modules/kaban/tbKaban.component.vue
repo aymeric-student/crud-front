@@ -2,9 +2,10 @@
 import { computed } from 'vue'
 import draggable from 'vuedraggable'
 import { useBoardStore } from '@/modules/stores/useBoard.store'
-import TbModal from '@/modules/core/components/tbModal.component.vue'
 import { useRoute } from 'vue-router'
+import TbModal from '@/modules/core/components/tbModal.component.vue'
 import TbAddTaskModal from '@/modules/core/components/tbAddTaskModal.component.vue'
+import TbModalTaskView from '@/modules/core/components/tbModalTaskView.component.vue'
 
 const route = useRoute()
 const boardStore = useBoardStore()
@@ -41,7 +42,7 @@ const addTask = (title: string) => {
                 item-key="id"
             >
                 <template #item="{ element: task }">
-                    <div class="task">
+                    <div class="task" @click="boardStore.openTaskViewModal()">
                         <h3>{{ task.title }}</h3>
                     </div>
                 </template>
@@ -62,6 +63,11 @@ const addTask = (title: string) => {
         @close="boardStore.closeAddTaskModal"
         @create="addTask"
     />
+
+    <tb-modal-task-view
+        :show="boardStore.showTaskViewModal"
+        @close="boardStore.closeTaskViewModal()"
+    ></tb-modal-task-view>
 </template>
 
 <style scoped>
