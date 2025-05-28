@@ -5,7 +5,6 @@ interface Props {
     show: boolean
     width?: string
     height?: string
-    columnId?: string
 }
 
 interface Subtasks {
