@@ -45,7 +45,7 @@ const closeModal = () => {
             class="bg-[#2B2C37] rounded-lg p-6 text-white relative modal-container"
             @click.stop
         >
-            <h2 class="text-xl font-bold title">Add New Task</h2>
+            <h2 class="text-xl font-bold title mb-2">Add New Task</h2>
 
             <div>
                 <label class="name">Title</label>
@@ -61,19 +61,25 @@ const closeModal = () => {
             </div>
 
             <div>
-                <h2>Subtasks</h2>
+                <h2 class="mb-2">Subtasks</h2>
 
-                <div class="container-input">
-                    <input placeholder="e.g. Web Design" type="text" />
-                    <img alt="croix" class="croix" src="@/assets/delete.svg" />
+                <div class="flex items-center mb-6">
+                    <input class="mr-2" placeholder="e.g. Web Design" type="text" />
+                    <img
+                        alt="croix"
+                        class="cursor-pointer ml-2 w-4 h-4"
+                        src="@/assets/delete.svg"
+                    />
                 </div>
             </div>
 
-            <tb-button :disabled="false" variant="secondary">+ Add New Subtask</tb-button>
+            <tb-button :disabled="false" class="w-full" variant="secondary"
+                >+ Add New Subtask
+            </tb-button>
 
             <tb-button
                 :disabled="!taskTitle.trim()"
-                class="full mt-4"
+                class="w-full mt-4"
                 variant="primary"
                 @click="handleCreateTask"
             >
@@ -84,33 +90,12 @@ const closeModal = () => {
 </template>
 
 <style scoped>
-.container-input {
-    display: flex;
-    align-items: center;
-    margin-bottom: 24px;
-}
-
-.croix {
-    width: 16px;
-    height: 16px;
-    margin-left: 8px;
-    align-self: center;
-}
-
-h2 {
-    margin-bottom: 8px;
-}
-
 .modal-container {
     padding: 32px;
 }
 
 .title {
     padding-bottom: 24px;
-}
-
-.full {
-    width: 100%;
 }
 
 input {

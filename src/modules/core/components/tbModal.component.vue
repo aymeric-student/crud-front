@@ -28,14 +28,13 @@ const emit = defineEmits<{
 }>()
 
 const boardName = ref('')
+
 const createBoard = () => {
     if (!boardName.value || columns.value.length === 0) return
 
-    // Trouver le plus grand ID actuel
     const currentMaxId = Math.max(...boardStore.boards.map(b => Number(b.id)))
     const newBoardId = (currentMaxId + 1).toString()
 
-    // Créer le board
     boardStore.boards.push({
         id: newBoardId,
         name: boardName.value,
@@ -82,22 +81,22 @@ const removeColumn = (index: number) => {
         >
             <h2 v-if="title" class="text-xl font-bold title">{{ title }}</h2>
 
-            <h2 class="name">Board Name</h2>
+            <h2 class="font-bold text-xs leading-[15px] text-white">Board Name</h2>
 
             <input v-model="boardName" placeholder="e.g. Platform Launch" type="text" />
 
             <div class="add-column">
-                <h2 class="name">Board Columns</h2>
+                <h2 class="font-bold text-xs leading-[15px] text-white">Board Columns</h2>
 
                 <div
                     v-for="(_, index) in columns"
                     :key="index"
-                    class="flex container-column items-center gap-2"
+                    class="flex container-column items-center"
                 >
                     <input v-model="columns[index]" placeholder="e.g. Web Design" type="text" />
                     <img
                         alt="croix"
-                        class="croix"
+                        class="cursor-pointer"
                         src="@/assets/delete.svg"
                         @click="removeColumn(index)"
                     />
@@ -105,14 +104,14 @@ const removeColumn = (index: number) => {
 
                 <tb-button
                     :disabled="false"
-                    class="full"
+                    class="w-full"
                     variant="secondary"
                     @click="addEmptyColumn()"
                     >+ Add New Column
                 </tb-button>
             </div>
 
-            <tb-button :disabled="false" class="full" variant="primary" @click="createBoard()">
+            <tb-button :disabled="false" class="w-full" variant="primary" @click="createBoard()">
                 Create New Board
             </tb-button>
         </div>
@@ -120,24 +119,12 @@ const removeColumn = (index: number) => {
 </template>
 
 <style scoped>
-.croix {
-    cursor: pointer;
-}
-
 .modal-container {
     padding: 32px;
 }
 
 .title {
     padding-bottom: 24px;
-}
-
-.full {
-    width: 100%;
-}
-
-.add-column {
-    margin-bottom: 24px;
 }
 
 input {
@@ -160,26 +147,7 @@ input::placeholder {
     color: #979797;
 }
 
-.column-title {
-    padding: 8px 0 8px 16px;
-    border: 1px solid rgba(130, 143, 163, 0.25);
-    border-radius: 4px;
-    width: 100%;
-}
-
 .container-column {
     margin-bottom: 12px;
-}
-
-img {
-    padding-left: 16px;
-}
-
-.name {
-    font-weight: 700;
-    font-size: 12px;
-    line-height: 15px;
-    padding-bottom: 8px;
-    color: #ffffff;
 }
 </style>

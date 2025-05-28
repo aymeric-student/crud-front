@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import draggable from 'vuedraggable'
 import { useBoardStore } from '@/modules/stores/useBoard.store'
 import TbModal from '@/modules/core/components/tbModal.component.vue'
@@ -14,12 +14,9 @@ boardStore.setSelectedBoard(boardId.value)
 
 const columns = computed(() => boardStore.selectedBoard?.columns ?? [])
 
-const showAddTaskModal = ref(false)
-
 const addTask = (title: string) => {
     console.log('Nouvelle tâche :', title)
 
-    // 👇 Ici tu peux l'ajouter à la première colonne par défaut :
     const firstColumn = boardStore.selectedBoard?.columns?.[0]
     if (firstColumn) {
         const taskId = `${Date.now()}`

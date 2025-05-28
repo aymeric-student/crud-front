@@ -91,10 +91,6 @@ ul li.last-item:hover {
     background: rgba(99, 95, 199, 0.1);
 }
 
-ul li img {
-    margin-left: 0;
-}
-
 .logo {
     margin-top: 33px;
     margin-left: 34px;
