@@ -1,26 +1,34 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
-import type { Subtasks, Task } from '@/modules/kaban/models/board.model.ts'
+import { computed, ref } from 'vue'
+import type { Task } from '@/modules/kaban/models/board.model.ts'
 
 interface Props {
     show: boolean
     width?: string
     height?: string
     task: null | Task
+    availableStatuses?: string[]
 }
 
 const props = withDefaults(defineProps<Props>(), {
     width: '480px',
     task: null,
-    height: 'auto'
+    height: 'auto',
+    availableStatuses: () => ['Todo', 'Doing', 'Done']
 })
 
 const emit = defineEmits<{
     close: []
+    updateTask: [task: Task]
 }>()
 
 const showDropdown = ref(false)
-const selectedStatus = ref('Doing')
+const selectedStatus = ref(props.task?.status || props.availableStatuses[0])
+
+const completedSubtasksCount = computed(() => {
+    if (!props.task?.subTasks) return 0
+    return props.task.subTasks.filter(subtask => subtask.isCompleted).length
+})
 
 const closeModal = () => {
     emit('close')
@@ -29,40 +37,36 @@ const closeModal = () => {
 const selectStatus = (status: string) => {
     selectedStatus.value = status
     showDropdown.value = false
+
+    if (props.task) {
+        const updatedTask = {
+            ...props.task,
+            status: status
+        }
+        emit('updateTask', updatedTask)
+    }
 }
 
 const toggleDropdown = () => {
     showDropdown.value = !showDropdown.value
 }
 
-const subTasks = ref<Subtasks[]>([
-    {
-        id: '2-1',
-        isCompleted: true,
-        title: 'Research competitor pricing and business models'
-    },
-    {
-        id: '2-2',
-        isCompleted: true,
-        title: ' Outline a business model that works for our solution'
-    },
-    {
-        id: '2-3',
-        isCompleted: false,
-        title:
-            ' Talk to potential customers about our proposed solution and ask for fair\n' +
-            '                            price expectancy'
-    }
-])
+const toggleSubtask = (subtaskId: string) => {
+    if (!props.task) return
 
-const toggleSubtask = (index: number) => {
-    subTasks.value[index].isCompleted = !subTasks.value[index].isCompleted
+    const updatedTask = {
+        ...props.task,
+        subTasks: props.task.subTasks.map(subtask =>
+            subtask.id === subtaskId ? { ...subtask, isCompleted: !subtask.isCompleted } : subtask
+        )
+    }
+    emit('updateTask', updatedTask)
 }
 </script>
 
 <template>
     <div
-        v-if="show"
+        v-if="show && task"
         class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50"
         @click="closeModal"
     >
@@ -72,38 +76,41 @@ const toggleSubtask = (index: number) => {
             @click.stop
         >
             <h2 class="font-bold text-lg leading-[23px] mb-6">
-                {{ task?.title }}
+                {{ task.title }}
             </h2>
 
-            <p class="font-medium leading-[23px] text-[13px] text-[#828fa3] mb-6">
-                {{ task?.description }}
+            <p
+                v-if="task.description"
+                class="font-medium leading-[23px] text-[13px] text-[#828fa3] mb-6"
+            >
+                {{ task.description }}
             </p>
 
-            <div class="mb-6">
-                <h3 class="font-bold text-xs leading-[15px] text-white mb-4">Subtasks (2 of 3)</h3>
+            <div v-if="task.subTasks && task.subTasks.length > 0" class="mb-6">
+                <h3 class="font-bold text-xs leading-[15px] text-white mb-4">
+                    Subtasks ({{ completedSubtasksCount }} of {{ task.subTasks.length }})
+                </h3>
 
                 <div class="container">
-                    <div class="container">
-                        <div
-                            v-for="(subtask, index) in task?.subTasks"
-                            :key="index"
-                            class="test flex items-center bg-[#20212c] rounded p-3"
+                    <div
+                        v-for="subtask in task.subTasks"
+                        :key="subtask.id"
+                        class="test flex items-center bg-[#20212c] rounded p-3"
+                    >
+                        <input
+                            :checked="subtask.isCompleted"
+                            class="flex-shrink-0 mr-2"
+                            type="checkbox"
+                            @change="toggleSubtask(subtask.id as string)"
+                        />
+                        <p
+                            :class="{
+                                'line-through text-[#828fa3]': subtask.isCompleted,
+                                'text-white': !subtask.isCompleted
+                            }"
                         >
-                            <input
-                                :checked="subtask.isCompleted"
-                                class="flex-shrink-0 mr-2"
-                                type="checkbox"
-                                @change="toggleSubtask(index)"
-                            />
-                            <p
-                                :class="{
-                                    'line-through text-[#828fa3]': subtask.isCompleted,
-                                    'text-white': !subtask.isCompleted
-                                }"
-                            >
-                                {{ subtask.title }}
-                            </p>
-                        </div>
+                            {{ subtask.title }}
+                        </p>
                     </div>
                 </div>
             </div>
@@ -123,14 +130,13 @@ const toggleSubtask = (index: number) => {
                     v-if="showDropdown"
                     class="absolute top-full left-0 right-0 z-10 flex flex-col p-4 test mt-1"
                 >
-                    <p class="cursor-pointer hover:text-white" @click="selectStatus('Todo')">
-                        Todo
-                    </p>
-                    <p class="cursor-pointer hover:text-white" @click="selectStatus('Doing')">
-                        Doing
-                    </p>
-                    <p class="cursor-pointer hover:text-white" @click="selectStatus('Done')">
-                        Done
+                    <p
+                        v-for="status in availableStatuses"
+                        :key="status"
+                        class="cursor-pointer hover:text-white mb-2 last:mb-0"
+                        @click="selectStatus(status)"
+                    >
+                        {{ status }}
                     </p>
                 </div>
             </div>

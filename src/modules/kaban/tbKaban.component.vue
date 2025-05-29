@@ -6,6 +6,7 @@ import { useRoute } from 'vue-router'
 import TbModal from '@/modules/core/components/tbModal.component.vue'
 import TbAddTaskModal from '@/modules/core/components/tbAddTaskModal.component.vue'
 import TbModalTaskView from '@/modules/core/components/tbModalTaskView.component.vue'
+import type { Task } from '@/modules/kaban/models/board.model.ts'
 
 const route = useRoute()
 const boardStore = useBoardStore()
@@ -16,13 +17,23 @@ boardStore.setSelectedBoard(boardId.value)
 const columns = computed(() => boardStore.selectedBoard?.columns ?? [])
 
 const addTask = (title: string) => {
-    console.log('Nouvelle tâche :', title)
-
     const firstColumn = boardStore.selectedBoard?.columns?.[0]
     if (firstColumn) {
         const taskId = `${Date.now()}`
-        firstColumn.tasks.push({ id: taskId, title, subTasks: [], description: '' })
+        firstColumn.tasks.push({
+            id: taskId,
+            title,
+            description: '',
+            status: firstColumn.title,
+            subTasks: []
+        })
     }
+}
+
+const availableStatuses = computed(() => columns.value.map(column => column.title))
+
+const handleTaskUpdate = (updatedTask: Task) => {
+    // boardStore.updateTask(updatedTask)
 }
 </script>
 
@@ -51,9 +62,11 @@ const addTask = (title: string) => {
     </div>
 
     <tb-modal-task-view
+        :available-statuses="availableStatuses"
         :show="boardStore.showTaskViewModal"
         :task="boardStore.taskSelected"
         @close="boardStore.closeTaskViewModal"
+        @update-task="handleTaskUpdate"
     />
 
     <tb-modal

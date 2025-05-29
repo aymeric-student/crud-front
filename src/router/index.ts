@@ -10,8 +10,7 @@ const routes: RouteRecordRaw[] = [
     {
         path: '/board/:boardId',
         name: 'Board',
-        component: Kaban,
-        props: true
+        component: Kaban
     }
 ]
 

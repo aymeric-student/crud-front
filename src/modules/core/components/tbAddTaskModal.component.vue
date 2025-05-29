@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import TbButton from '@/modules/core/components/tbButton.component.vue'
+import type { Subtasks } from '@/modules/kaban/models/board.model.ts'
 
 interface Props {
     show: boolean
@@ -20,12 +21,22 @@ const emit = defineEmits<{
 }>()
 
 const taskTitle = ref('')
+const taskDescription = ref('')
 
 const handleCreateTask = () => {
-    console.log('je suis là')
     if (!taskTitle.value.trim()) return
-    emit('create', taskTitle.value.trim())
+    emit('create', taskTitle.value?.trim() as string)
     closeModal()
+}
+
+const subtasks = ref<Subtasks[]>([])
+
+const addSubTask = () => {
+    subtasks.value.push({ title: '', isCompleted: false })
+}
+
+const removeSubTask = (index: number) => {
+    subtasks.value.splice(index, 1)
 }
 
 const closeModal = () => {
@@ -55,27 +66,37 @@ const closeModal = () => {
             <div>
                 <label class="name">Description</label>
                 <textarea
-                    v-model="taskTitle"
+                    v-model="taskDescription"
                     placeholder="e.g. It’s always good to take a break. This 15 minute break will recharge the batteries a little."
                 />
             </div>
 
             <div>
-                <h2 class="mb-2">Subtasks</h2>
+                <label class="name">Subtasks</label>
 
-                <div class="flex items-center mb-6 gap-2">
-                    <input placeholder="e.g. Web Design" type="text" />
+                <div
+                    v-for="(subtask, index) in subtasks"
+                    :key="index"
+                    class="flex items-center mb-4 gap-2"
+                >
+                    <input
+                        v-model="subtask.title"
+                        class="flex-1"
+                        placeholder="e.g. Web Design"
+                        type="text"
+                    />
                     <img
-                        alt="croix"
-                        class="cursor-pointer ml-2 w-4 h-4"
+                        alt="Remove"
+                        class="cursor-pointer w-4 h-4"
                         src="@/assets/delete.svg"
+                        @click="removeSubTask(index)"
                     />
                 </div>
-            </div>
 
-            <tb-button :disabled="false" class="w-full" variant="secondary"
-                >+ Add New Subtask
-            </tb-button>
+                <tb-button :disabled="false" class="w-full" variant="secondary" @click="addSubTask">
+                    + Add New Subtask
+                </tb-button>
+            </div>
 
             <tb-button
                 :disabled="!taskTitle.trim()"

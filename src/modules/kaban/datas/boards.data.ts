@@ -13,6 +13,7 @@ const boards: Board[] = [
                         id: '0',
                         title: 'Build UI for onboarding flow',
                         description: 'Create a seamless onboarding experience for new users',
+                        status: 'TODO',
                         subTasks: [
                             { id: '0-1', title: 'Design wireframes', isCompleted: true },
                             { id: '0-2', title: 'Implement components', isCompleted: false }
@@ -21,6 +22,7 @@ const boards: Board[] = [
                     {
                         id: '1',
                         title: 'Build UI for search',
+                        status: 'TODO',
                         description: 'Implement search functionality with filters',
                         subTasks: [
                             { id: '1-1', title: 'Design search interface', isCompleted: true },
@@ -37,6 +39,7 @@ const boards: Board[] = [
                     {
                         id: '2',
                         title: 'Design settings and search pages',
+                        status: 'TODO',
                         description: 'Create comprehensive settings page with search capabilities',
                         subTasks: [
                             {
@@ -76,6 +79,7 @@ const boards: Board[] = [
                     {
                         id: '3',
                         title: 'Fix crash on login',
+                        status: 'TODO',
                         description: 'Resolve the application crash that occurs during user login',
                         subTasks: [
                             { id: '3-1', title: 'Reproduce the bug', isCompleted: true },

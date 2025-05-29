@@ -2,7 +2,7 @@
 interface Props {
     disabled?: boolean
     icon?: string
-    variant: 'primary' | 'secondary'
+    variant: 'primary' | 'secondary' | 'danger'
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -25,6 +25,7 @@ const handleClick = () => {
         :class="{
             'bg-[#635fc7] text-white hover:opacity-90': variant === 'primary',
             'bg-white text-[#635fc7]': variant === 'secondary',
+            'bg-[#ff9898] text-white': variant === 'danger',
             'opacity-25 cursor-not-allowed': disabled
         }"
         :disabled="disabled"
