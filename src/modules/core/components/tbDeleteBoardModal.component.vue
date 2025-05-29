@@ -14,10 +14,15 @@ const props = withDefaults(defineProps<Props>(), {
 
 const emit = defineEmits<{
     close: []
+    delete: []
 }>()
 
 const closeModal = () => {
     emit('close')
+}
+
+const confirmDelete = () => {
+    emit('delete')
 }
 </script>
 
@@ -36,13 +41,17 @@ const closeModal = () => {
                 Delete this board?
             </h1>
             <p class="font-medium text-[13px] leading-[23px] text-[#828fa3] mb-6">
-                Are you sure you want to delete the ‘Platform Launch’ board? This action will remove
-                all columns and tasks and cannot be reversed.
+                Are you sure you want to delete this board? This action will remove all columns and
+                tasks and cannot be reversed.
             </p>
 
             <div class="flex gap-4">
-                <tb-button :disabled="false" class="flex-1" variant="danger">Delete</tb-button>
-                <tb-button :disabled="false" class="flex-1" variant="secondary">Cancel</tb-button>
+                <tb-button :disabled="false" class="flex-1" variant="danger" @click="confirmDelete">
+                    Delete
+                </tb-button>
+                <tb-button :disabled="false" class="flex-1" variant="secondary" @click="closeModal">
+                    Cancel
+                </tb-button>
             </div>
         </div>
     </div>

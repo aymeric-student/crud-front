@@ -31,7 +31,7 @@ const handleEditBoard = () => {
 const handleDeleteBoard = () => {
     console.log('Delete Board clicked')
     showPopover.value = false
-    showConfirmDeleteModal()
+    boardStore.openDeleteBoardModal()
 }
 
 // Fermer la popover quand on clique ailleurs
@@ -44,11 +44,6 @@ const handleClickOutside = (event: MouseEvent) => {
     ) {
         showPopover.value = false
     }
-}
-const showModal = ref(false)
-
-const showConfirmDeleteModal = () => {
-    showModal.value = true
 }
 
 onMounted(() => {
@@ -109,9 +104,10 @@ onUnmounted(() => {
     </header>
 
     <tb-delete-board-modal
-        :show="showModal"
-        @close="boardStore.closeDeleteBoardModal()"
-    ></tb-delete-board-modal>
+        :show="boardStore.showDeleteBoardModal"
+        @close="boardStore.closeDeleteBoardModal"
+        @delete="boardStore.deleteCurrentBoard"
+    />
 </template>
 
 <style scoped>

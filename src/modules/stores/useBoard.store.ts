@@ -46,8 +46,29 @@ export const useBoardStore = defineStore('board', () => {
         showTaskViewModal.value = false
     }
 
+    const openDeleteBoardModal = () => {
+        showDeleteBoardModal.value = true
+    }
+
     const closeDeleteBoardModal = () => {
         showDeleteBoardModal.value = false
+    }
+
+    const deleteCurrentBoard = () => {
+        if (selectedBoardId.value) {
+            // Supprimer le board du tableau
+            boards.value = boards.value.filter(board => board.id !== selectedBoardId.value)
+
+            // Si c'était le dernier board, sélectionner le premier disponible
+            if (boards.value.length > 0) {
+                selectedBoardId.value = boards.value[0].id
+            } else {
+                selectedBoardId.value = ''
+            }
+
+            // Fermer la modal
+            closeDeleteBoardModal()
+        }
     }
 
     return {
@@ -57,6 +78,7 @@ export const useBoardStore = defineStore('board', () => {
         showModal,
         showAddTaskModal,
         showTaskViewModal,
+        showDeleteBoardModal,
         taskSelected,
         setSelectedBoard,
         openModal,
@@ -65,6 +87,8 @@ export const useBoardStore = defineStore('board', () => {
         closeAddTaskModal,
         openTaskViewModal,
         closeTaskViewModal,
-        closeDeleteBoardModal
+        openDeleteBoardModal,
+        closeDeleteBoardModal,
+        deleteCurrentBoard
     }
 })
